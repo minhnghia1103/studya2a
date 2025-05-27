@@ -45,9 +45,10 @@ class WeatherAgent(A2AServer):
             )
         return task
 
+
 weather_agent = WeatherAgent()
 
-
+# SSE stream để gửi dữ liệu thời tiết
 async def weather_stream(location: str):
     task = type('Task', (), {
         'message': {'content': {'text': f"weather in {location}"}},
