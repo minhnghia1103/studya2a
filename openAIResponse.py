@@ -30,12 +30,13 @@ async def llm_stream(location: str):
         for chunk in response:
             if chunk.choices[0].delta.content:
                 content = chunk.choices[0].delta.content
-                yield f"data: {json.dumps({'content': content})}\n\n"
+                print("content", content)  # In ra console để debug
+                yield f"{json.dumps({'content': content})}\n\n"
                 await asyncio.sleep(0.01)  # Nhỏ delay để smooth streaming
         
         # Kết thúc stream
-        yield "data: [DONE]\n\n"
-        
+        yield "[DONE]\n\n"
+
     except Exception as e:
         yield f"data: {json.dumps({'error': str(e)})}\n\n"
 
